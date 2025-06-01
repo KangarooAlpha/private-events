@@ -1,0 +1,21 @@
+<h1>Events</h1>
+
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<% if user_signed_in? %>
+    <%= link_to @user, "users#show" %>
+    <%= button_to "Sign Out", destroy_user_session_path, method: :destroy%>
+<% else %>
+    <%= link_to "Sign Up", new_user_registration_path %>
+    <%= link_to "Log in", new_user_session_path %>
+<% end %>
+<% if @events.present? %>
+    <% @events.each do |e| %>
+        <li>
+            <%= link_to e.name%>
+        </li>
+    <% end %>
+<% else %>
+    <h3>No events exist at this time.</h3>
+<% end %>
