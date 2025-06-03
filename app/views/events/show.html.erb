@@ -1,4 +1,19 @@
+<%= link_to "Home", root_path %> <br>
+
 <%= @event.name %> <br>
 <%= @event.location %> <br>
 <%= @event.date %> <br>
 <%= @event.creater.email%> <br>
+
+<% if user_signed_in? %>
+    <% if current_user.attended_events.include?(@event) %>
+        <%= button_to "Cancel Attendance", event_attendance_path(@event), method: :delete %>
+    <% else %>
+        <%= button_to "Attend Event", event_attendance_path(@event), method: :post %>
+    <% end %>
+<% end %>
+
+<h1>Attendees: </h1>
+<% @event.attendees.each do |a| %>
+    <%= a.email %>
+<% end %>

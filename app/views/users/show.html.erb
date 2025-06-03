@@ -1,3 +1,5 @@
+<%= link_to "Home", root_path %> <br>
+
 <h1><%= current_user.email %></h1>
 
 <p class="notice"><%= notice %></p>
@@ -13,4 +15,15 @@
     <h3>This user has no events at this time. </h3> <br>
 <% end %>
 
-<%= link_to "Create Event", new_event_path %>
+<%= link_to "Create Event", new_event_path %> <br>
+
+<h1>Attended Events: </h1>
+<% @user.attended_events.each do |a| %>
+    <% if a.date > Time.now %>
+        <h3>Future events: </h3>
+        <%= link_to a.name, a %>
+    <% elsif a.date < Time.now %>
+        <h3>Past events: </h3>
+        <%= link_to a.name, a %>
+    <% end %>
+<% end %>
